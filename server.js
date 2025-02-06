@@ -41,12 +41,29 @@ const server = http.createServer((req, res) => {
                         res.writeHead(200, {'Content-Type' : 'application/json'});
                         res.end(JSON.stringify({message: 'Item atualizado' }));
                     }
+                    break;
                 case 'DELETE':
+                    if(!body.id || !dataStore[body.id]){
+                        res.writeHead(404, {'Content-Type' : 'application/json'});
+                        res.end(JSON.stringify({message: 'Item não encontrado'}));
+                    }else{
+                        delete dataStore[body.id];
+                        res.writeHead(200, {'Content-Type' : 'application/json'});
+                        res.end(JSON.stringify({message: 'Item deletado' }));
+                    }
+                    break;
                 default:
+                    res.writeHead(405, {'Content-Type' : 'application/json'});
+                    res.end(JSON.stringify({message: 'Rota nao encontrada' }));
+                    break;
             }
+        }else{
+            res.writeHead(404, {'Content-Type' : 'application/json'});
+            res.end(JSON.stringify({message: 'Rota nao encontrada' }));
         }
-
     });
-
-
+});
+const PORT = 3000;
+server.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });
