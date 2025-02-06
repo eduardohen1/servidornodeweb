@@ -6,7 +6,7 @@ let dataStore = {}; //simular um BD
 
 const server = http.createServer((req, res) => {
     const parseUrl = parse(req.url, true);
-    const path = parseUrl.replace(/^\/+|\/+$/g, ''); //removendo caracteres especiais
+    const path = parseUrl.pathname.replace(/^\/+|\/+$/g, '');
     const method = req.method.toUpperCase();
     const decoder = new StringDecoder('utf-8');
     let buffer = '';
