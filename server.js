@@ -4,6 +4,11 @@ const { StringDecoder } = require('string_decoder');
 
 let dataStore = {}; //simular um BD
 
+//Tratamento de CORS
+res.setHeader('Access-Control-Allow-Origin', '*');
+res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
 const server = http.createServer((req, res) => {
     const parseUrl = parse(req.url, true);
     const path = parseUrl.pathname.replace(/^\/+|\/+$/g, '');
